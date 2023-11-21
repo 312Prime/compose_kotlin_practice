@@ -6,7 +6,7 @@ Android jetpack 에서 제공하는 Compose 를 통해 UI를 구현하기 위해
 
 ### What To do In Compose?
 
-1. [ ] 기본 도구들을 사용해보고 BaseTool에 기록한다.
+1. [x] 기본 도구들을 사용해보고 BaseTool에 기록한다.
 2. [ ] 간단한 기능을 가진 앱을 만들면서 익숙해진다.
 
 ### Why Compose?
