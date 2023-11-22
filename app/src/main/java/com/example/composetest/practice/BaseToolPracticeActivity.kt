@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,12 +32,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import com.example.composetest.R
 import com.example.composetest.ui.theme.ComposeTestTheme
 
 class BaseToolPracticeActivity : ComponentActivity() {
@@ -45,7 +49,7 @@ class BaseToolPracticeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeTestTheme {
-                MyTextField()
+                WebImageTest()
             }
         }
     }
@@ -163,10 +167,26 @@ fun MyTextField() {
     }
 }
 
+@Composable
+fun MyImageTest(){
+    Image(
+        painter = painterResource(id = R.drawable.ic_launcher_background),
+        contentDescription = "icon"
+    )
+}
+
+@Composable
+fun WebImageTest(){
+    AsyncImage(
+        model = "https://s3.ap-northeast-2.amazonaws.com/img.kormedi.com/news/article/__icsFiles/artimage/2016/12/12/c_km601/403416_540_1.jpg",
+        contentDescription = "cheese"
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     ComposeTestTheme {
-        MyTextField()
+        MyImageTest()
     }
 }
