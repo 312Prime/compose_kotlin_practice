@@ -7,11 +7,15 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +23,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
@@ -33,6 +38,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -52,7 +58,7 @@ class BaseToolPracticeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeTestTheme {
-                BoxExample()
+                RowTest()
             }
         }
     }
@@ -142,13 +148,9 @@ fun MyTextField() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TextField(
-            value = textState,
-            onValueChange = { textState = it },
-            label = {
-                Text(text = "text 입력 공간")
-            }
-        )
+        TextField(value = textState, onValueChange = { textState = it }, label = {
+            Text(text = "text 입력 공간")
+        })
         Spacer(modifier = Modifier.padding(10.dp))
         OutlinedTextField(
             value = outLineTextState,
@@ -161,8 +163,7 @@ fun MyTextField() {
             label = { Text(text = "button 출력") })
         Spacer(modifier = Modifier.padding(5.dp))
         Button(
-            onClick = { textStateOutput = textStateInput },
-            modifier = Modifier.fillMaxWidth()
+            onClick = { textStateOutput = textStateInput }, modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "입력하기")
         }
@@ -222,20 +223,17 @@ fun BoxExample() {
         }
 
         Button(
-            onClick = {},
-            modifier = Modifier.align(Alignment.CenterStart)
+            onClick = {}, modifier = Modifier.align(Alignment.CenterStart)
         ) {
             Text(text = "중앙 왼쪽")
         }
         Button(
-            onClick = {},
-            modifier = Modifier.align(Alignment.Center)
+            onClick = {}, modifier = Modifier.align(Alignment.Center)
         ) {
             Text(text = "중앙 중앙")
         }
         Button(
-            onClick = {},
-            modifier = Modifier.align(Alignment.CenterEnd)
+            onClick = {}, modifier = Modifier.align(Alignment.CenterEnd)
         ) {
             Text(text = "중앙 오른쪽")
         }
@@ -271,10 +269,131 @@ fun BoxExample() {
     }
 }
 
+@Composable
+fun RowTest() {
+    Row(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Gray),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "Item1", style = TextStyle(background = Color.Blue), fontSize = 30.sp
+        )
+        Text(
+            text = "Item2", style = TextStyle(background = Color.Red), fontSize = 30.sp
+        )
+        Text(
+            text = "Item3", style = TextStyle(background = Color.Green), fontSize = 30.sp
+        )
+    }
+}
+
+@Composable
+fun ColumnRowTest1() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp)
+            .background(Color.Gray)
+    ) {
+        Text(
+            text = "안녕하세요", color = Color.Blue, fontSize = 20.sp
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "왼쪽")
+            Text(text = "중앙")
+            Text(text = "오른쪽")
+        }
+        Text(
+            text = "안녕하세요", color = Color.Red, fontSize = 20.sp
+        )
+    }
+}
+
+@Composable
+fun ColumnRowTest2() {
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(20.dp)
+            .background(Color.Cyan)
+            .border(border = BorderStroke(5.dp, color = Color.Blue)),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(
+            modifier = Modifier.padding(top = 20.dp)
+        ) {
+
+            Image(
+                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                contentDescription = "안드로이드 이미지",
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(RoundedCornerShape(50.dp))
+                    .background(Color.Green)
+            )
+        }
+
+        Text(
+            text = "312Prime",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(top = 50.dp)
+        )
+
+        Text(
+            text = "Developer",
+            fontSize = 15.sp,
+            modifier = Modifier.padding(10.dp)
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = "이메일",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(10.dp)
+            )
+
+            Text(
+                text = "fhemflrh60@gmail.com",
+                fontSize = 15.sp,
+                modifier = Modifier.padding(10.dp),
+                color = Color.Blue
+            )
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = "연락처",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(10.dp)
+            )
+
+            Text(
+                text = "010-5307-2510",
+                fontSize = 15.sp,
+                modifier = Modifier.padding(10.dp)
+            )
+        }
+
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     ComposeTestTheme {
-        BoxExample()
+        ColumnRowTest2()
     }
 }
