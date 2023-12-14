@@ -11,6 +11,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -35,11 +39,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -49,6 +55,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -63,6 +70,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -558,8 +566,120 @@ fun MyBottomBar() {
     }
 }
 
+@Composable
+fun MyLazyColumnEx() {
+    val textList = ('A'..'Z').toList().map { it.toString() }.let { it + it + it + it }
+
+    LazyColumn {
+        items(textList) { item ->
+            Text(
+                text = item,
+                fontSize = 60.sp,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+    }
+}
+
+@Composable
+fun MyLazyRowEx() {
+    val textList = ('A'..'Z').toList().map { it.toString() }.let { it + it + it + it }
+
+    LazyRow {
+        items(textList) { item ->
+            Text(text = item, fontSize = 100.sp, modifier = Modifier.clickable {
+                println("Clicked item : $item")
+            })
+        }
+    }
+}
+
+@Composable
+fun MyProgressIndicator() {
+    var progress by remember { mutableFloatStateOf(0.0f) }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(onClick = { if (progress < 1.0f) progress += 0.1f }) {
+            Text(
+                text = "행복 게이지",
+                fontSize = 30.sp
+            )
+        }
+
+        Spacer(modifier = Modifier.size(30.dp))
+
+        LinearProgressIndicator(
+            progress = progress,
+            modifier = Modifier.height(10.dp),
+            color = Color.Blue,
+            trackColor = Color.LightGray,
+        )
+
+        CircularProgressIndicator(
+            progress = progress,
+            color = Color.Blue
+        )
+    }
+}
+
+@Composable
+fun MyTextArea1() {
+    Column {
+        Text(
+            text = "안녕",
+            fontSize = 100.sp,
+            color = Color.Black
+        )
+        Text(
+            text = "나는",
+            fontSize = 100.sp,
+            color = Color.Gray
+        )
+        Text(
+            text = "누구야",
+            fontSize = 100.sp,
+            color = Color.Blue
+        )
+    }
+}
+
+@Composable
+fun MyTextArea2() {
+    Column {
+        MyTextFormat1(text = "안녕", fontSize = 100.sp, color = Color.Black)
+        MyTextFormat1(text = "나는", fontSize = 100.sp, color = Color.Gray)
+        MyTextFormat1(text = "누구야", fontSize = 100.sp, color = Color.Blue)
+    }
+}
+
+@Composable
+fun MyTextFormat1(text: String, fontSize: TextUnit, color: Color) {
+    Text(text = text, fontSize = fontSize, color = color)
+}
+
+@Composable
+fun MyTextArea3() {
+    MyTextFormat2 {
+        Text(
+            text = "안녕",
+            fontSize = 100.sp,
+            color = Color.Black
+        )
+    }
+}
+
+@Composable
+fun MyTextFormat2(content: @Composable () -> Unit) {
+    content()
+    content()
+    content()
+}
+
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    MyScaffold()
+    MyTextArea3()
 }
