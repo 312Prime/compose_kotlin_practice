@@ -26,6 +26,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -75,6 +77,10 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.example.composetest.R
 import com.example.composetest.ui.theme.ComposeTestTheme
@@ -85,7 +91,7 @@ class BaseToolPracticeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeTestTheme {
-                MyShowHideEx2()
+                MyNavigation2(navHostController = rememberNavController())
             }
         }
     }
@@ -673,6 +679,13 @@ fun MyTextArea3() {
 }
 
 @Composable
+fun MyTextFormat2(content: @Composable () -> Unit) {
+    content()
+    content()
+    content()
+}
+
+@Composable
 fun MyShowHideEx1() {
     var isButtonVisible by remember { mutableStateOf(false) }
 
@@ -721,10 +734,112 @@ fun MyShowHideEx2() {
 }
 
 @Composable
-fun MyTextFormat2(content: @Composable () -> Unit) {
-    content()
-    content()
-    content()
+fun MyScreen1(navController: NavHostController) {
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "화면 1", fontSize = 50.sp)
+        Button(onClick = { navController.navigate("myScreen2") }) {
+            Text(
+                text = "2번 화면으로 가기",
+                fontSize = 30.sp
+            )
+        }
+    }
+}
+
+@Composable
+fun MyScreen2(navController: NavHostController) {
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "화면 2", fontSize = 50.sp)
+        Button(onClick = { navController.navigate("myScreen3") }) {
+            Text(
+                text = "3번 화면으로 가기",
+                fontSize = 30.sp
+            )
+        }
+    }
+}
+
+@Composable
+fun MyScreen3(navController: NavHostController) {
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "화면 3", fontSize = 50.sp)
+        Button(onClick = { navController.navigate("myScreen1") }) {
+            Text(
+                text = "1번 화면으로 가기",
+                fontSize = 30.sp
+            )
+        }
+    }
+}
+
+@Composable
+fun MyNavigation1() {
+
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = "myScreen1") {
+        composable("myScreen1") {
+            MyScreen1(navController = navController)
+        }
+        composable("myScreen2") {
+            MyScreen2(navController = navController)
+        }
+        composable("myScreen3") {
+            MyScreen3(navController = navController)
+        }
+    }
+}
+
+@Composable
+fun MyGridScreen(navHostController: NavHostController) {
+    LazyVerticalGrid(columns = GridCells.Fixed(3), modifier = Modifier.padding(20.dp)) {
+        items(15) { number ->
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .border(1.dp, Color.Black)
+                    .clickable { navHostController.navigate("myNumberScreen/$number") }
+            ) {
+                Text(text = number.toString(), fontSize = 30.sp)
+            }
+        }
+    }
+}
+
+@Composable
+fun MyNumberScreen(number: String?) {
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        Text(text = number.toString(), fontSize = 70.sp)
+    }
+}
+
+@Composable
+fun MyNavigation2(navHostController: NavHostController) {
+    NavHost(navController = navHostController, startDestination = "myGridScreen") {
+        composable("myGridScreen") {
+            MyGridScreen(navHostController = navHostController)
+        }
+        composable("myNumberScreen/{number}") { navBackStackEntry ->
+            MyNumberScreen(number = navBackStackEntry.arguments?.getString("number"))
+        }
+    }
 }
 
 @Preview(showBackground = true)
