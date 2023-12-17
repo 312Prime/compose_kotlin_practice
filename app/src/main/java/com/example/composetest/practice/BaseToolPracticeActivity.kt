@@ -49,6 +49,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
@@ -84,7 +85,7 @@ class BaseToolPracticeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeTestTheme {
-                MyScaffold()
+                MyShowHideEx2()
             }
         }
     }
@@ -672,6 +673,54 @@ fun MyTextArea3() {
 }
 
 @Composable
+fun MyShowHideEx1() {
+    var isButtonVisible by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Button(onClick = { isButtonVisible = !isButtonVisible }) {
+            if (isButtonVisible) {
+                Text(text = "숨기기", fontSize = 50.sp)
+            } else {
+                Text(text = "보이기", fontSize = 50.sp)
+            }
+        }
+        if (isButtonVisible) {
+            Button(onClick = { /*TODO*/ }) {
+                Text(text = "짠짠짠", fontSize = 50.sp)
+            }
+        }
+    }
+}
+
+@Composable
+fun MyShowHideEx2() {
+    var switchState by remember {
+        mutableStateOf(false)
+    }
+
+    Column(modifier = Modifier.padding(20.dp)) {
+        Switch(checked = switchState, onCheckedChange = { checked ->
+            switchState = checked
+        })
+
+        Text(text = if (switchState) "ON" else "OFF")
+
+        if (switchState) {
+            Button(onClick = { /*TODO*/ }) {
+                Text(
+                    text = "짠짠짠",
+                    fontSize = 100.sp
+                )
+            }
+        }
+    }
+}
+
+@Composable
 fun MyTextFormat2(content: @Composable () -> Unit) {
     content()
     content()
@@ -681,5 +730,5 @@ fun MyTextFormat2(content: @Composable () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    MyTextArea3()
+    MyShowHideEx2()
 }
