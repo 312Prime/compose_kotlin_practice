@@ -19,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composetest.practice.BaseToolPracticeActivity
+import com.example.composetest.practice.CanvasPracticeActivity
+import com.example.composetest.practice.DialogPracticeActivity
 import com.example.composetest.practice.DrawerPracticeActivity
 import com.example.composetest.practice.RetrofitPracticeActivity
 import com.example.composetest.ui.theme.ComposeTestTheme
@@ -56,7 +58,15 @@ private fun GoToPractice(context: Context) {
         }
         Spacer(modifier = Modifier.padding(top = 30.dp))
         Button(onClick = { moveToDrawerActivity(context = context) }) {
-            Text(text = "Drawer 통신 연습장")
+            Text(text = "Drawer 메뉴 연습장")
+        }
+        Spacer(modifier = Modifier.padding(top = 30.dp))
+        Button(onClick = { moveToDialogActivity(context = context) }) {
+            Text(text = "Dialog 대화창 연습장")
+        }
+        Spacer(modifier = Modifier.padding(top = 30.dp))
+        Button(onClick = { moveToCanvasActivity(context = context) }) {
+            Text(text = "Canvas 그림판 연습장")
         }
     }
 }
@@ -81,6 +91,20 @@ private fun moveToDrawerActivity(context: Context) {
     context.startActivity(
         Intent(
             context, DrawerPracticeActivity::class.java
+        ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    )
+}
+private fun moveToDialogActivity(context: Context) {
+    context.startActivity(
+        Intent(
+            context, DialogPracticeActivity::class.java
+        ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    )
+}
+private fun moveToCanvasActivity(context: Context) {
+    context.startActivity(
+        Intent(
+            context, CanvasPracticeActivity::class.java
         ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     )
 }
