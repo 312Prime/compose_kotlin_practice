@@ -19,6 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composetest.practice.BaseToolPracticeActivity
+import com.example.composetest.practice.DrawerPracticeActivity
+import com.example.composetest.practice.RetrofitPracticeActivity
 import com.example.composetest.ui.theme.ComposeTestTheme
 
 class MainActivity : ComponentActivity() {
@@ -48,6 +50,14 @@ private fun GoToPractice(context: Context) {
         Button(onClick = { moveToPracticeActivity(context = context) }) {
             Text(text = "Compose 기본 컴포넌트 연습장")
         }
+        Spacer(modifier = Modifier.padding(top = 30.dp))
+        Button(onClick = { moveToRetroFitActivity(context = context) }) {
+            Text(text = "Retrofit 통신 연습장")
+        }
+        Spacer(modifier = Modifier.padding(top = 30.dp))
+        Button(onClick = { moveToDrawerActivity(context = context) }) {
+            Text(text = "Drawer 통신 연습장")
+        }
     }
 }
 
@@ -55,6 +65,22 @@ private fun moveToPracticeActivity(context: Context) {
     context.startActivity(
         Intent(
             context, BaseToolPracticeActivity::class.java
+        ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    )
+}
+
+private fun moveToRetroFitActivity(context: Context) {
+    context.startActivity(
+        Intent(
+            context, RetrofitPracticeActivity::class.java
+        ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    )
+}
+
+private fun moveToDrawerActivity(context: Context) {
+    context.startActivity(
+        Intent(
+            context, DrawerPracticeActivity::class.java
         ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     )
 }
