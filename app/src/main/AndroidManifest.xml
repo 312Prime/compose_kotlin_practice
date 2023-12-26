@@ -39,6 +39,9 @@
         <activity
             android:name=".practice.CanvasPracticeActivity"
             android:exported="true" />
+        <activity
+            android:name=".function.ResumeActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
