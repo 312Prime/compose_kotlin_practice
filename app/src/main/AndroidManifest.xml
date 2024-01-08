@@ -45,6 +45,9 @@
         <activity
             android:name=".function.DiceActivity"
             android:exported="true" />
+        <activity
+            android:name=".function.GraphActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.composetest.function.DiceActivity
+import com.example.composetest.function.GraphActivity
 import com.example.composetest.function.ResumeActivity
 import com.example.composetest.practice.BaseToolPracticeActivity
 import com.example.composetest.practice.CanvasPracticeActivity
@@ -63,6 +64,7 @@ private fun GoToPractice(context: Context) {
         Divider(thickness = 1.dp)
         MoveButton(context, ResumeActivity(), "Resume 이력서 기능", Color.Blue, Color.Gray)
         MoveButton(context, DiceActivity(), "Dice 주사위 기능", Color.Blue, Color.Gray)
+        MoveButton(context, GraphActivity(), "Graph 그래프 기능", Color.Blue, Color.Gray)
     }
 }
 
