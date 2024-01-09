@@ -51,6 +51,9 @@
         <activity
             android:name=".function.CalendarActivity"
             android:exported="true" />
+        <activity
+            android:name=".uiPractice.ThemeActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
