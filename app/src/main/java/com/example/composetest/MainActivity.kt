@@ -5,23 +5,28 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.gestures.animateScrollBy
+import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.composetest.function.CalendarActivity
 import com.example.composetest.function.DiceActivity
 import com.example.composetest.function.GraphActivity
 import com.example.composetest.function.ResumeActivity
@@ -46,10 +51,14 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun GoToPractice(context: Context) {
+    val state = rememberScrollState()
+    LaunchedEffect(Unit) { state.animateScrollTo(100) }
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(state),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Spacer(modifier = Modifier.padding(top = 30.dp))
         Text(text = "Compose 연습장")
@@ -65,6 +74,7 @@ private fun GoToPractice(context: Context) {
         MoveButton(context, ResumeActivity(), "Resume 이력서 기능", Color.Blue, Color.Gray)
         MoveButton(context, DiceActivity(), "Dice 주사위 기능", Color.Blue, Color.Gray)
         MoveButton(context, GraphActivity(), "Graph 그래프 기능", Color.Blue, Color.Gray)
+        MoveButton(context, CalendarActivity(), "Calendar 달력 기능", Color.Blue, Color.Gray)
     }
 }
 
