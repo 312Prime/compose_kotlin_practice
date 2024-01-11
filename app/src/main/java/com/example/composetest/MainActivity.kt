@@ -36,6 +36,7 @@ import com.example.composetest.practice.DialogPracticeActivity
 import com.example.composetest.practice.DrawerPracticeActivity
 import com.example.composetest.practice.RetrofitPracticeActivity
 import com.example.composetest.ui.theme.ComposeTestTheme
+import com.example.composetest.uiPractice.CardActivity
 import com.example.composetest.uiPractice.ShoppingUIActivity
 import com.example.composetest.uiPractice.ThemeActivity
 
@@ -70,6 +71,7 @@ private fun GoToPractice() {
     val userInterfaceList = listOf(
         Pair(ThemeActivity(), "Theme 테스트 UI"),
         Pair(ShoppingUIActivity(), "Shopping 사이트 UI"),
+        Pair(CardActivity(), "Card 소개 UI"),
     )
     LaunchedEffect(Unit) { state.animateScrollTo(100) }
     Column(

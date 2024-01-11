@@ -57,6 +57,9 @@
         <activity
             android:name=".uiPractice.ShoppingUIActivity"
             android:exported="true" />
+        <activity
+            android:name=".uiPractice.CardActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
