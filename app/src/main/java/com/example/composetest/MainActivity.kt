@@ -36,6 +36,7 @@ import com.example.composetest.practice.DialogPracticeActivity
 import com.example.composetest.practice.DrawerPracticeActivity
 import com.example.composetest.practice.RetrofitPracticeActivity
 import com.example.composetest.ui.theme.ComposeTestTheme
+import com.example.composetest.uiPractice.ShoppingUIActivity
 import com.example.composetest.uiPractice.ThemeActivity
 
 class MainActivity : ComponentActivity() {
@@ -67,7 +68,8 @@ private fun GoToPractice() {
         Pair(CalendarActivity(), "Calendar 달력 기능"),
     )
     val userInterfaceList = listOf(
-        Pair(ThemeActivity(), "Theme 테스트 UI")
+        Pair(ThemeActivity(), "Theme 테스트 UI"),
+        Pair(ShoppingUIActivity(), "Shopping 사이트 UI"),
     )
     LaunchedEffect(Unit) { state.animateScrollTo(100) }
     Column(
